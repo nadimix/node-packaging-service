@@ -52,4 +52,18 @@ describe('Creating new presets', function() {
         .expect(201, done);
    });
 
+   it('Returns the preset name', function(done){
+      request(app)
+        .post('/presets')
+        .send({'name':'4320p', 'description': 'A stunning 8K quality'})
+        .expect(/4320p/i, done);
+   });
+
+   it('Validates preset name and description', function(done) {
+      request(app)
+        .post('/presets')
+        .send({'name':'', 'description':''})
+        .expect(400, done);
+   });
+
 });

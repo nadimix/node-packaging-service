@@ -17,7 +17,7 @@ router.route('/')
   .post(jsonParser,  function(request, response) {
     var newPreset = request.body;
     if (!newPreset.name || !newPreset.description) {
-      response.status(400);
+      response.sendStatus(400);
       return false;
     }
     client.hset('presets', newPreset.name, newPreset.description, function(error) {
