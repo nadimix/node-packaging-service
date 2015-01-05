@@ -17,7 +17,7 @@ describe('Requests to the root path', function() {
 
 });
 
-describe('Requests to the /presets path', function(done) {
+describe('Listing presets', function() {
     
    it('Returns a 200 status code', function(done) {
       request(app)
@@ -37,7 +37,11 @@ describe('Requests to the /presets path', function(done) {
         .expect(JSON.stringify('[["480p"],["720p"],["1080p"],["2160p"]]'), done);
    });
 
-   it('Creating new formats', function(done) {
+});
+
+describe('Creating new presets', function() {
+
+  it('Returns a 201 status code', function(done) {
       request(app)
         .post('/presets')
         .send(JSON.stringify({'4320p': 'A stunning 8K quality'}))
