@@ -1,6 +1,10 @@
 var request = require('supertest');
 var app = require('./app');
 
+var client = require('redis').createClient();
+client.select('test'.length);
+client.flushdb();
+
 describe('Requests to the root path', function() {
 
   it('Returns a 200 status code', function(done) {
@@ -31,10 +35,10 @@ describe('Listing presets', function() {
         .expect('Content-Type', /json/, done);
    });
 
-   it('Returns a set of formats', function(done) {
+   it('Returns initial formats', function(done) {
       request(app)
         .get('/presets')
-        .expect(JSON.stringify('[["480p"],["720p"],["1080p"],["2160p"]]'), done);
+        .expect('[]', done);
    });
 
 });
@@ -44,7 +48,7 @@ describe('Creating new presets', function() {
   it('Returns a 201 status code', function(done) {
       request(app)
         .post('/presets')
-        .send(JSON.stringify({'4320p': 'A stunning 8K quality'}))
+        .send({'name':'4320p', 'description': 'A stunning 8K quality'})
         .expect(201, done);
    });
 

@@ -1,29 +1,28 @@
 var express = require('express');
 var app = express();
 var jsonParser = require('body-parser').json();
+var client = require('redis').createClient();
+client.select((process.env.NODE_ENV || 'development').length);
 
 app.use(express.static('public'));
 
-var presets = [
-  { '480p': '480p at 2Mbps' },
-  { '720p': '720p at 3Mbps' },
-  { '1080p': '1080p at 5Mbps' },
-  { '2160p': '2160p at 20Mbps' }
-];
-
 app.get('/presets', function(request, response) {
-  var keys = [];
-  presets.forEach(function (preset) {
-    keys.push(Object.keys(preset));
+  client.hkeys('presets', function(error, names) {
+    if(error) throw error;
+    response.json(names);
   });
-  response.json(JSON.stringify(keys));
 });
 
 app.post('/presets', jsonParser,  function(request, response) {
-  if (!request.body) {
-    response.status(400).json('request failed');
+  var newPreset = request.body;
+  if (!newPreset.name || !newPreset.description) {
+    response.status(400);
+    return false;
   }
-  response.status(201).json(JSON.stringify(presets));
+  client.hset('presets', newPreset.name, newPreset.description, function(error) {
+    if(error) throw error;
+    response.status(201).json(newPreset.name);
+  });
 });
 
 module.exports = app;
