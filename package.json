@@ -1,0 +1,14 @@
+{
+  "name": "node-packaging-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nadim El Taha <nadimeltaha@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.10.7"
+  }
+}
