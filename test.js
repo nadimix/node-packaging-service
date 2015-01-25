@@ -67,3 +67,18 @@ describe('Creating new presets', function() {
    });
 
 });
+
+describe('Listing users', function() {
+
+  it('Returns 200 status code', function(done) {
+    request(app)
+      .get('/users')
+      .expect(200, done);
+  });
+
+  it('Returns an user list', function(done) {
+    request(app)
+      .get('/users')
+      .expect('[]', done);
+  });
+});

@@ -8,9 +8,9 @@ var router = express.Router();
 
 router.route('/')
   .get(function(request, response) {
-    client.hkeys('presets', function(error, names) {
+    client.hkeys('presets', function(error, presets) {
       if(error) throw error;
-      response.json(names);
+      response.json(presets);
     });
   })
   
