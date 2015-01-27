@@ -81,4 +81,20 @@ describe('Listing users', function() {
       .get('/users')
       .expect('[]', done);
   });
+
+  it('Return an user', function(done) {
+    request(app)
+      .get('/users/wololo')
+      .expect('[]', done);
+  });
+});
+
+describe('Adding new Users', function(){
+
+    it('Returns a 201 status code', function(done) {
+      request(app)
+        .post('/users')
+        .send({'username':'wololo', 'email':'wololo@test.com', 'password':'woloword'})
+        .expect(201, done);
+    });
 });
