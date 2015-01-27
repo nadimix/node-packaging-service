@@ -22,11 +22,11 @@ router.route('/')
 	})
 	.post(jsonParser, function(request, response) {
 		var newUser = request.body;
-		if(!newUser.username || !newUser.email || !newUser.password) {
+		if(!newUser.username || !newUser.email || !newUser.password || checkUserExist(newUser.username)) {
 			response.sendStatus(400);
 			return false;
 		}
-		// TODO check existing users
+
 		var salt = crypto.randomBytes(16);
 		var password = hash.sha512(newUser.password, salt);
 		var object = {
@@ -47,5 +47,12 @@ router.route('/:user_id')
 			response.json(user);
 		})
 	});
+
+function checkUserExist(newUser) {
+	client.get(newUser.username, function(error, reply){
+		if(error) throw error;
+		return reply;
+	});
+}
 
 module.exports = router;
