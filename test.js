@@ -97,4 +97,18 @@ describe('Adding new Users', function(){
         .send({'username':'wololo', 'email':'wololo@test.com', 'password':'woloword'})
         .expect(201, done);
     });
+
+    it('Returns the username', function(done) {
+      request(app)
+        .post('/users')
+        .send({'username':'wololo', 'email':'wololo@test.com', 'password':'woloword'})
+        .expect(/wololo/i,done);
+      })
+
+    it('Validates username, password and email fields', function(done) {
+      request(app)
+        .post('/users')
+        .send({'username':'', 'email':'', 'password':''})
+        .expect(400, done);
+    });
 });

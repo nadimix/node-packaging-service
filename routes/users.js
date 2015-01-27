@@ -26,6 +26,7 @@ router.route('/')
 			response.sendStatus(400);
 			return false;
 		}
+		// TODO check existing users
 		var salt = crypto.randomBytes(16);
 		var password = hash.sha512(newUser.password, salt);
 		var object = {
