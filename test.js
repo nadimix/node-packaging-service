@@ -22,7 +22,7 @@ describe('Requests to the root path', function() {
 });
 
 describe('Listing presets', function() {
-    
+
    it('Returns a 200 status code', function(done) {
       request(app)
         .get('/presets')
@@ -91,6 +91,10 @@ describe('Listing users', function() {
 
 describe('Adding new Users', function(){
 
+    beforeEach(function(){
+      client.flushdb();
+    });
+
     it('Returns a 201 status code', function(done) {
       request(app)
         .post('/users')
@@ -103,12 +107,33 @@ describe('Adding new Users', function(){
         .post('/users')
         .send({'username':'wololo', 'email':'wololo@test.com', 'password':'woloword'})
         .expect(/wololo/i,done);
-      })
+      });
 
     it('Validates username, password and email fields', function(done) {
       request(app)
         .post('/users')
         .send({'username':'', 'email':'', 'password':''})
+        .expect(400, done);
+    });
+});
+
+describe('Checks if an user exist before add a new one', function(done) {
+
+    before(function() {
+      var object = {
+        'username': 'wololo',
+        'email': 'wololo@test.com',
+        'password': 'woloword'
+      };
+      client.hmset('wololo', object, function(error){
+        if(error) throw error;
+      });
+    });
+
+    it('Returns a 400 status code', function(done) {
+      request(app)
+        .post('/users')
+        .send({'username':'wololo', 'email':'wololo@test.com', 'password':'woloword'})
         .expect(400, done);
     });
 });
