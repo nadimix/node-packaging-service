@@ -137,3 +137,24 @@ describe('Checks if an user exist before add a new one', function(done) {
         .expect(400, done);
     });
 });
+
+describe('List all the jobs for a certain user', function(done){
+
+  before(function(){
+    var object = {
+      'username': 'wololo',
+      'email': 'wololo@test.com',
+      'password': 'woloword'
+    };
+    client.hmset('wololo', object, function(error){
+      if(error) throw error;
+    });
+  });
+
+  /*it('Returns a 200 ok', function(done){
+    request(app)
+      .get('/jobs')
+      .expect(200, done);
+  });*/
+
+});
