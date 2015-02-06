@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha -w test.js",
+    "test": "NODE_ENV=test mocha -R test.js",
     "start": "./bin/www"
   },
   "author": "Nadim El Taha <nadimeltaha@gmail.com>",
