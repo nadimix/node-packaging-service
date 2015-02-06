@@ -2,27 +2,32 @@
   "name": "node-packaging-service",
   "version": "1.0.0",
   "description": "",
-  "repository": "nadimix/node-packaging-service",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nadimix/node-packaging-service.git"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha -R spec test.js",
-    "start": "./bin/www",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "test": "make test-coveralls",
+    "start": "./bin/www"
   },
   "author": "Nadim El Taha <nadimeltaha@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.10.1",
-    "coveralls": "^2.11.2",
     "express": "^4.10.7",
     "hiredis": "^0.1.17",
-    "mocha-lcov-reporter": "0.0.1",
     "morgan": "^1.5.1",
     "node_hash": "https://registry.npmjs.org/node_hash/-/node_hash-0.2.0.tgz",
     "redis": "^0.12.1"
   },
   "devDependencies": {
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
+    "jscoverage": "^0.5.9",
+    "jshint": "^2.6.0",
     "mocha": "^2.1.0",
+    "mocha-lcov-reporter": "0.0.1",
     "supertest": "^0.15.0"
   }
 }

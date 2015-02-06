@@ -5,6 +5,3 @@ node_js:
 
 services:
   - redis-server
-
-script: "npm test && npm run coveralls"
-after_script: "npm install coveralls@2.11.2 && cat ./coverage/lcov.info | coveralls"
