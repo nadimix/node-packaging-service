@@ -23,4 +23,8 @@ test-development:
 	$(MAKE) lint
 	@NODE_ENV=test ./node_modules/.bin/mocha -w
 
+test-nyan:
+	$(MAKE) lint
+	@NODE_ENV=test ./node_modules/.bin/mocha -w --reporter nyan
+
 .PHONY: test
